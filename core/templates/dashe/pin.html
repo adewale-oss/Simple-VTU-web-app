@@ -1,0 +1,293 @@
+{% extends 'dashe/base.html' %}{% load static %}
+{% block content %}
+
+<div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 pb-10 pb-lg-0 pt-0 pt-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+    <!--begin::Heading-->
+    <h1 class="d-flex flex-column text-dark fw-bolder my-0 fs-1">Transaction Pin</h1>
+    <!--end::Heading-->
+    
+</div>
+
+<div class="row g-5 pb-5 g-lg-10" style="margin:0px; border-radius:2%; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; background-color:#ffffff;">
+    
+    <!-- * App Capsule -->
+    <div id="appCapsule">
+
+        
+        <div class="section mt-2">
+            <div class="section-title"></div>
+            <div class="transactions" style="padding: 10px;">
+            
+                {% if user.pin %}
+
+        <!--begin::Wrapper-->
+        
+            <!--begin::Form-->
+            <form class="form w-100"   action="#" method="POST">
+                {% csrf_token %}
+                <!--begin::Heading-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-10" >
+                    <!--begin::Label-->
+                    <label class="form-label fs-6 fw-bolder text-dark">Password</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input class="form-control form-control-lg form-control-solid" id="password" required="True" type="text"  autocomplete="off" />
+                    <!--end::Input-->
+                </div><br>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-10" >
+                    <!--begin::Label-->
+                    <label class="form-label fs-6 fw-bolder text-dark">Pin</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input class="form-control form-control-lg form-control-solid" id="u_pin1" required="True" type="number"  autocomplete="off" />
+                    <!--end::Input-->
+                </div><br>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-10" >
+                    
+                    <!--begin::Label-->
+                    <label class="form-label fs-6 fw-bolder text-dark">Confirm Pin</label>
+                    <input class="form-control form-control-lg form-control-solid" id="u_pin2" required="True" type="number" name="phone" autocomplete="off" />
+                    <!--end::Label-->
+                
+                
+                </div>
+                <!--end::Input group-->
+                <div class="form-group" style="padding-top: 30px;"><input type="button" id="update_pin" value=" Update Pin " class="btn btn-primary btn-center btn-block" ></a>
+                </div>
+                <!--end::Actions-->
+            
+            </form>
+            <!--end::Form-->
+    
+        <!--end::Wrapper-->
+
+        {% else %}
+
+
+        <!--begin::Wrapper-->
+        
+            <!--begin::Form-->
+            <form class="form w-100"   action="#" method="POST">
+                {% csrf_token %}
+                <!--begin::Heading-->
+            
+                <!--begin::Input group-->
+                <div class="fv-row mb-10" >
+                    <!--begin::Label-->
+                    <label class="form-label fs-6 fw-bolder text-dark">Pin</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input class="form-control form-control-lg form-control-solid" id="pin1" maxlength="4" required="True" type="number" placeholder="Enter 4 digits pin"  autocomplete="off" />
+                    <!--end::Input-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-10" id="pindiv" hidden>
+                    <!--begin::Label-->
+                    <label class="form-label fs-6 fw-bolder text-dark">Confirm Pin</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input class="form-control form-control-lg form-control-solid" id="pin2" maxlength="4" required="True" type="number" placeholder="Confirm your pin"  autocomplete="off" />
+                    <!--end::Input-->
+                </div><br>
+                <!--end::Input group-->
+            
+            
+                <div class="form-group" style="padding-top: 10px;"><input type="button" id="set_pin" value=" Set Pin " class="btn btn-primary btn-center btn-block" ></a>
+                </div>
+                <!--end::Actions-->
+                
+            </form>
+            <!--end::Form-->
+    
+        <!--end::Wrapper-->
+
+        {% endif %}
+
+                
+            </div>
+        </div>
+        
+
+
+
+    </div>
+    <!-- * App Capsule -->
+
+    <script>
+        $(document).ready(function(){
+
+            
+            fetch();
+            set_pin();
+            update_pin();
+
+
+
+            function fetch(){
+                $(document).on('input', '#pin1', function(){
+                let pin = $('#pin1').val();
+                
+                    if (pin !== ''){
+                    $('#pindiv').removeAttr('hidden', true);
+                    
+                    }else{
+                        $('#pindiv').attr('hidden', 'hidden');
+                    
+                    };
+                });
+            } 
+
+
+            function set_pin() {
+
+                $(document).on('click', '#set_pin', function(){
+                    let pin1 =$('#pin1').val();
+                    let pin2 =$('#pin2').val();
+                    let csrftoken = $("[name=csrfmiddlewaretoken]").val();
+                    
+                    
+                
+
+                    if (pin1.length == 4) {
+                        if (pin1 == pin2){
+                            $.ajax({
+                                type : 'POST',
+                                url: "{% url 'create_pin' %}",
+                                data: {pin1:pin1, pin2:pin2},
+                                headers : {'X-CSRFToken': csrftoken},
+                                cache: false,
+                                dataType: "JSON", 
+                                success: function(response){
+                                if (response !== ''){
+                                        if (response.code==200){
+                                            iziToast.success({
+                                                title: 'Success',
+                                                position: 'topRight', 
+                                                message: response.success
+                                                });
+                                        }else{
+                                            iziToast.error({
+                                                title: 'Error',
+                                                position: 'topRight', 
+                                                message: response.error
+                                                });
+                                        }
+                                }else{
+                                    iziToast.error({
+                                        title: 'Error',
+                                        position: 'topRight', 
+                                        message: "Something went wrong"
+                                        });
+                                }
+                                },
+                                
+                            });
+
+                        }else{
+                            iziToast.error({
+                                title: 'Error',
+                                position: 'topRight', 
+                                message: "Pin not matching"
+                                });
+                        }
+                    
+                    }else{
+                        iziToast.error({
+                            title: 'Error',
+                            position: 'topRight', 
+                            message: "Pin can only be 4 digits"
+                            });
+                    }
+                });
+
+            }
+
+
+
+            
+            function update_pin() {
+
+                $(document).on('click', '#update_pin', function(){
+                    let u_pin1 =$('#u_pin1').val();
+                    let u_pin2 =$('#u_pin2').val();
+                    let password =$('#password').val();
+                    let csrftoken = $("[name=csrfmiddlewaretoken]").val();
+                    
+                    
+                
+                    if (password !== ''){
+                        if (u_pin1.length == 4) {
+                            if (u_pin1 == u_pin2){
+                                $.ajax({
+                                    type : 'POST',
+                                    url: "{% url 'update_pin' %}",
+                                    data: {u_pin1:u_pin1, u_pin2:u_pin2, password:password},
+                                    headers : {'X-CSRFToken': csrftoken},
+                                    cache: false,
+                                    dataType: "JSON", 
+                                    success: function(response){
+                                        if (response !== ''){
+                                            if (response.code==200){
+                                                iziToast.success({
+                                                    title: 'Success',
+                                                    position: 'topRight', 
+                                                    message: response.success
+                                                    });
+                                            }else{
+                                                iziToast.error({
+                                                    title: 'Error',
+                                                    position: 'topRight', 
+                                                    message: response.error
+                                                    });
+                                            }
+                                    }else{
+                                        iziToast.error({
+                                            title: 'Error',
+                                            position: 'topRight', 
+                                            message: "Something went wrong"
+                                            });
+                                    }
+                                    },
+                                    
+                                });
+        
+                            }else{
+                                iziToast.error({
+                                    title: 'Error',
+                                    position: 'topRight', 
+                                    message: "Pin not matching"
+                                    });
+                            }
+                        
+                        }else{
+                            iziToast.error({
+                                title: 'Error',
+                                position: 'topRight', 
+                                message: "Pin can only be 4 digits"
+                                });
+                        }
+                    }else{
+                        iziToast.error({
+                            title: 'Error',
+                            position: 'topRight', 
+                            message: "Enter a valid password"
+                            });
+                    }
+                });
+
+            }
+
+
+        });
+
+        
+    </script>
+</div>
+
+{% endblock %}

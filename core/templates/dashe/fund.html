@@ -1,0 +1,58 @@
+{% extends 'dashe/base.html' %}{% load static %}
+{% block content %}
+
+<div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 pb-10 pb-lg-0 pt-0 pt-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+    <!--begin::Heading-->
+    <h1 class="d-flex flex-column text-dark fw-bolder my-0 fs-1">Wallet Funding</h1>
+    <!--end::Heading-->
+    
+</div>
+
+<div class="row g-5 g-lg-10">
+    <div class="col-xxl-12 col-md-12 mb-xxl-10">
+        <div class="card h-md-100" style="min-height:500px; background-color:#f9fafb;">
+            <div class="row" style="text-align: center;">
+                <div class="col-6"  style="padding: 5px;">
+                    <a href="{% url 'bank_transfer' %}" class="card border-0" style="height:200px; background-color: #fff; box-shadow: 0 .1rem 1rem .25rem rgba(0,0,0,.05)!important;">
+                        <div class="" style="text-align:center; padding-top: 35px;">
+                            <img src="{% static 'dashe/assets/media/spec.jpg' %}" width="50" class="rounded-m" alt="img">
+                            <h6 class="pt-7 pb-3" style="color: black; font-family: Uchen,serif;">BANK TRANSFER</h6>
+                        </div>
+                        <p class="p-2 " style="color: #888888;">Instant deposit into wallet after successful transfer</p>
+                    
+                    </a>
+                </div>
+                <div class="col-6"  style="padding: 5px;">
+                    <a href="{% url 'manual_funding' %}" class="card border-0" style="height:200px; background-color: #fff; box-shadow: 0 .1rem 1rem .25rem rgba(0,0,0,.05)!important;">
+                        <div class="" style="text-align:center; padding-top: 30px;">
+                            <img src="{% static 'dashe/assets/media/spec.jpg' %}" width="50" class="rounded-m" alt="img">
+                            <h6 class="pt-7" style="color: black; font-family: Uchen,serif;">MANUAL FUNDING</h6>
+                        </div>
+                        <p class="p-2" style="color: #888888;">Not automated. Deposit into our provided account and contact our support line to get funded</p>
+                    
+                    </a>
+                </div>
+            </div>
+            <div class="row pt-5" style="text-align: center;">
+                <div class=" align-items-center"  style="padding: 5px;">
+                    <a href="{% url 'card' %}" class="card border-0" style="min-height:150px; background-color: #fff; box-shadow: 0 .1rem 1rem .25rem rgba(0,0,0,.05)!important;">
+                        <div class="" style="text-align:center; padding-top: 30px;">
+                            <img src="{% static 'dashe/assets/media/spec.jpg' %}" width="50" class="rounded-m" alt="img">
+                            <h6 class="pt-7" style="color: black; font-family: Uchen,serif;">PAY WITH PAYSTACK</h6>
+                        </div>
+                        <p class="p-3 pb-5" style="color: #888888;">Instant automated deposit. Provides multiple payment options which include card payment, USSD, generated account bank transfer and more.</p>
+                    
+                    </a>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

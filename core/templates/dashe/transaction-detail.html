@@ -1,0 +1,98 @@
+{% extends 'dashe/base.html' %}{% load static %}
+{% block content %}
+
+<div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 pb-10 pb-lg-0 pt-0 pt-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+    <!--begin::Heading-->
+    <h1 class="d-flex flex-column text-dark fw-bolder my-0 fs-1">Transaction Details</h1>
+    <!--end::Heading-->
+    
+</div>
+
+<div class="row g-5 pb-5 g-lg-10" style="margin:0px; border-radius:2%; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; background-color:#ffffff;">
+   
+    <!-- App Capsule -->
+    <div id="appCapsule" class="full-height">
+
+        <div class="section mt-2 mb-2">
+
+
+            <div class="listed-detail mt-3">
+                <div class="icon-wrapper">
+                    <div class="iconbox">
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </div>
+                </div>
+                <h3 class="text-center mt-2">{{tran.service}}</h3>
+            </div>
+
+            <ul class="listview flush transparent simple-listview no-space mt-3">
+                <li>
+                    <strong>Status</strong>
+                    {%if tran.status == 'success' %}
+                    <span class="text-success">{{tran.status}}</span>
+                    {%elif tran.status == 'initiated' %}
+                    <span class="text-primary">{{tran.status}}</span>
+                    {%elif tran.status == 'pending' %}
+                    <span class="text-warning">Proccessing</span>
+                    {%else%}
+                    <span class="text-danger">{{tran.status}}</span>
+                    {% endif %}
+                </li>
+                <li>
+                    <strong>Type</strong>
+                    <span>{{tran.type}}</span>
+                </li>
+                {% if tran.plan %}
+                <li>
+                    <strong>Plan</strong>
+                    <span>{{tran.plan}}</span>
+                </li>
+                {% endif %}
+
+                {% if tran.beneficiary %}
+                <li>
+                    <strong>Beneficiary</strong>
+                    <span>{{tran.beneficiary}}</span>
+                </li>
+                {% endif %}
+                {% if tran.beneficiary_name %}
+                <li>
+                    <strong>Beneficiary Name</strong>
+                    <span>{{tran.beneficiary_name}}</span>
+                </li>
+                {%endif%}
+                <li>
+                    <strong>Amount</strong>
+                    <span style="text-align: right;">₦ {{tran.amount}}</span>
+                </li>
+                {% if tran.amount_paid %}
+                <li>
+                    <strong>Amount Paid</strong>
+                    <h3 class="m-0">₦ {{tran.amount_paid}}</h3>
+                </li>
+                {%endif%}
+                {% if tran.convinience_fee %}
+                <li>
+                    <strong>Convinience Fee</strong>
+                    <span>{{tran.convinience_fee}}</span>
+                </li>
+                {% endif %}
+                <li>
+                    <strong>Reference</strong>
+                    <h3 class="m-0">{{tran.reference}}</h3>
+                </li>
+                <li>
+                    <strong>Date</strong>
+                    <span>{{tran.date_ordered}}</span>
+                </li>
+                
+            </ul>
+
+
+        </div>
+
+    </div>
+    <!-- * App Capsule -->
+</div>
+
+{% endblock %}

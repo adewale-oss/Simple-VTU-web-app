@@ -1,0 +1,67 @@
+{% extends 'dashe/base.html' %}{% load static %}
+{% block content %}
+
+<div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 pb-10 pb-lg-0 pt-0 pt-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+    <!--begin::Heading-->
+    <h1 class="d-flex flex-column text-dark fw-bolder my-0 fs-1">Bank Transfer</h1>
+    <!--end::Heading-->
+    
+</div>
+
+<div class="row g-5 pb-5 g-lg-10" style="margin:0px; border-radius:2%; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; background-color:#ffffff;">
+    
+
+    <!-- * App Capsule -->
+    <div id="appCapsule">
+
+        
+        <div class="section mt-2">
+            <div class="section-title"></div>
+            <div class="transactions" style="padding: 10px;">
+            
+                <div class="action-sheet-content">
+                    <form>
+                        <div class="form-group basic text-center pb-10 fw-bolder" style="color: #305970;">
+                        This funding method carries a charge of 2% of the total amount. Money sent into the below account will automatically get added to your wallet balance
+                        </div>
+
+                        <div class="form-group basic pb-5">
+                            <label class="label pb-3 fw-bolder">Account Name</label>
+                            <div class="input-group mb-2">
+                                
+                                <input type="text" class="form-control" readonly
+                                    value="{{user.account_name}}">
+                            </div>
+                        </div>
+                        <div class="form-group basic pb-5">
+                            <label class="label pb-3 fw-bolder">Account Number</label>
+                            <div class="input-group mb-2">
+                                
+                                <input type="text" id="auto_num" class="form-control" readonly value="{{user.account_number}}">
+                            </div>
+                        </div>
+                        <div class="form-group basic pb-5">
+                            <label class="label pb-3 fw-bolder">Bank Name</label>
+                            <div class="input-group mb-2">
+                                
+                                <input type="text" class="form-control" readonly value="{{user.bank_name}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic text-center">
+                            <button type="button" id="auto_button" class="btn btn-primary btn-block btn-lg">Copy Acc No</button>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+        
+
+
+
+    </div>
+    <!-- * App Capsule -->
+</div>
+
+{% endblock %}

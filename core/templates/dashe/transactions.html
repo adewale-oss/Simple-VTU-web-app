@@ -1,0 +1,99 @@
+{% extends 'dashe/base.html' %}{% load static %}
+{% block content %}
+
+<div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 pb-10 pb-lg-0 pt-0 pt-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+    <!--begin::Heading-->
+    <h1 class="d-flex flex-column text-dark fw-bolder my-0 fs-1">Transactions</h1>
+    <!--end::Heading-->
+    
+</div>
+
+<!--begin::Row-->
+<div class="row g-5 g-lg-10">
+            
+    <!--begin::Col-->
+    <div class="col-xxl-12 col-md-12 mb-xxl-10">
+        <!--begin::List Widget 3-->
+        <div class="card h-md-100">
+            <!--begin::Header-->
+            <div class="card-header border-0">
+                <h3 class="card-title fw-bolder text-dark">All Transactions</h3>
+                <div class="card-toolbar">
+                    <!--begin::Menu-->
+                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewbox="0 0 24 24">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="5" y="5" width="5" height="5" rx="1" fill="#000000"></rect>
+                                    <rect x="14" y="5" width="5" height="5" rx="1" fill="#000000" opacity="0.3"></rect>
+                                    <rect x="5" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3"></rect>
+                                    <rect x="14" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3"></rect>
+                                </g>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </button>
+                    <!--end::Menu-->
+                </div>
+            </div>
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body pt-2">
+                <!--begin::Item-->
+                {% for tran in trans %}
+                <div class="d-flex align-items-center mb-8">
+                    <!--begin::Bullet-->
+                    
+                    {% if tran.status == 'success' %}
+                    <span class="bullet bullet-vertical h-45px bg-success"></span>
+                    {% elif tran.status == 'failed' %}
+                    <span class="bullet bullet-vertical h-45px bg-danger"></span>
+                    {% elif tran.status == 'reversed' %}
+                    <span class="bullet bullet-vertical h-45px bg-danger"></span>
+                    {% elif tran.status == 'pending' %}
+                    <span class="bullet bullet-vertical h-45px bg-warning"></span>
+                    {% else %}
+                    <span class="bullet bullet-vertical h-45px bg-primary"></span>
+                    {% endif %}
+                    <!--end::Bullet-->
+                    
+                    <!--begin::Description-->
+                    <div class="flex-grow-1" style="padding-left: 10px;">
+                        <a href="{% url 'transaction_detail' pk=tran.id %}">
+                            <span class="text-gray-800 text-hover-primary fw-bolder fs-6">{{tran.service}}</span>
+                            <span class="text-gray-800 fw-bold d-block" style="font-size: 10px;">{{tran.plan}}</span>
+                            
+                        </a>
+                    </div>
+                    <!--end::Description-->
+                    <div class="flex-grow-1" style="padding-left: 10px; text-align: end;">
+                        {% if tran.status == 'success' %}
+                        <span class="badge badge-light-success fs-8 fw-bolder">success</span>
+                        {% elif tran.status == 'failed' %}
+                        <span class="badge badge-light-danger fs-8 fw-bolder">failed</span>
+                        {% elif tran.status == 'reversed' %}
+                        <span class="badge badge-light-danger fs-8 fw-bolder">reversed</span>
+                        {% elif tran.status == 'pending' %}
+                        <span class="badge badge-light-warning fs-8 fw-bolder">sprocessing</span>
+                        {% else %}
+                        <span class="badge badge-light-primary fs-8 fw-bolder">sprocessing</span>
+                        {% endif %}
+
+                        <span class="text-primary fw-bold d-block" style="font-size: 9px;">{{tran.date_ordered}}</span>
+                    </div>
+                </div>
+                {% endfor %}
+                <!--end:Item-->
+                
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end:List Widget 3-->
+    </div>
+    <!--end::Col-->
+    
+</div>
+<!--end::Row-->
+
+{% endblock %}

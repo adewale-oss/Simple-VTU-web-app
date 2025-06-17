@@ -1,0 +1,108 @@
+{% extends 'dashe/base.html' %}{% load static %}
+{% block content %}
+
+
+<div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-2 pb-10 pb-lg-0 pt-0 pt-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+    <!--begin::Heading-->
+    <h1 class="d-flex flex-column text-dark fw-bolder my-0 fs-1">Bill Payments</h1>
+    <!--end::Heading-->
+    
+</div>
+
+<div class="row g-5 pb-5 g-lg-10" style="margin:0px; border-radius:2%; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; background-color:#ffffff;">
+ 
+
+    <!-- * App Capsule -->
+    <div id="appCapsule">
+
+        
+        <div class="section mt-2">
+            <div class="section-title"></div>
+            <div class="transactions" style="padding: 10px;">
+            
+                <form class="form w-100"   action="#" method="POST">
+                    {% csrf_token %}
+                    
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-10">
+                        <!--begin::Label-->
+                        <label class="form-label fs-6 fw-bolder text-dark">DISCO</label><br>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                    
+                        <select name="provider" required="True" class="form-control form-control-lg form-control-solid" style="background-color:rgb(217, 224, 230); box-shadow: 0 .1rem 1rem .25rem rgba(0,0,0,.05)!important;" id="disco_disco">
+                            <option value="">Please Select Disco</option>
+                            {% for disco in discos %}
+                            <option value="{{disco.disco_id}}">{{disco.name}} - {{disco.type}}</option>
+                            {% endfor %}
+                            
+                        </select>
+                        <!--end::Input-->
+                    </div>
+                    <br>
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-10" id="disco_meterNo" >
+                        <!--begin::Label-->
+                        <label class="form-label fs-6 fw-bolder text-dark">METER</label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input class="form-control form-control-lg form-control-solid" id="disco_meter" required="True" type="number"  autocomplete="off" />
+                        <!--end::Input-->
+                    </div><br>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-10" id="disco_discoAmount" >
+                        <!--begin::Label-->
+                        <label class="form-label fs-6 fw-bolder text-dark">AMOUNT</label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input class="form-control form-control-lg form-control-solid" id="disco_amount" required="True" type="number"  autocomplete="off" />
+                        <!--end::Input-->
+                        
+                    </div><br>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-10" id="disco_phoneNo" >
+                        
+                            <!--begin::Label-->
+                            <label class="form-label fs-6 fw-bolder text-dark">BENEFICIARY NUMBER</label>
+                            <input class="form-control form-control-lg form-control-solid" id="disco_b_number" required="True" type="number" name="phone" autocomplete="off" />
+                            <!--end::Label-->
+                    
+                    
+                    </div><br>
+        
+                    <div class="fv-row mb-10" id="disco_pindiv" >
+                        
+                        <!--begin::Label-->
+                        <label class="form-label fs-6 fw-bolder text-dark">PIN</label>
+                        <input class="form-control form-control-lg form-control-solid" required="True" type="number" id="disco_pin" name="pin" placeholder="Enter your 4 digits pin" autocomplete="off" />
+                        <!--end::Label-->
+                
+                
+                    </div>
+                    
+                
+                </form>
+                
+            </div>
+        </div>
+        
+
+    
+
+        <div class="section mt-2 mb-2" style="text-align: center;">
+            <a href="#" id="disco_submit" class="btn btn-primary btn-block btn-lg">PAY BILL</a>
+        </div>
+
+        <div class="section mt-2 mb-2" id="processing" style="text-align: center;" hidden>
+            <a href="#" id="" class="btn btn-primary btn-block btn-lg">PROCESSING...</a>
+        </div>
+
+
+    </div>
+    <!-- * App Capsule -->
+</div>
+
+
+{% endblock %}
